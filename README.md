@@ -1,2 +1,2 @@
 # siaga_covid-19
-Tugas Besar Sistem Terdistribusi dan Pararel
+Tugas Besar Sistem Pararel dan Terdistribusi
