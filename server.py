@@ -28,16 +28,16 @@ def time_pickup():
     time_format = time.strftime("%d-%m-%Y %H:%M:%S")
 
     return time_format
-    
+
 # Buat kelas requesthandler batasi pada path /RPC2 saja
 class RequestHandler(SimpleXMLRPCRequestHandler):
-    rpc_paths = ('/RPC')
+    rpc_paths = ('/RPC2')
 
 # Buat server serta register fungsi 
-with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler = RequestHandler) as server:
+with SimpleXMLRPCServer(("127.0.0.1", 8000), requestHandler = RequestHandler) as server:
     server.register_introspection_functions()
 
-    def report(nik, nama):
+    def report(nik):
         response = dict()
         if validate_nik(nik):
             total_pickup = random.randint(3,6)
@@ -53,6 +53,6 @@ with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler = RequestHandler) as
 
         return response
     
-    server.register_function(report,"report")
+    server.register_function(report,'report')
 
     server.serve_forever()
