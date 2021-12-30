@@ -6,11 +6,11 @@ import numpy as np
 import random
 from datetime import timedelta, datetime
 
-#Read Data
+# Membaca dataset
 df_nik = pd.read_csv('data_nik.csv')
 df_penjemput = pd.read_csv('data_penjemput.csv')
 
-#Change to 1D List
+# Ubah dari dataframe ke 1d list
 df_nik = np.array(df_nik).ravel().tolist()
 df_penjemput = np.array(df_penjemput).ravel().tolist()
 
@@ -28,19 +28,31 @@ def time_pickup():
     time_format = time.strftime("%d-%m-%Y %H:%M:%S")
 
     return time_format
+    
+# Buat kelas requesthandler batasi pada path /RPC2 saja
+class RequestHandler(SimpleXMLRPCRequestHandler):
+    rpc_paths = ('/RPC')
 
-def report(nik, nama):
-    response = dict()
-    if validate_nik(nik):
-        total_pickup = random.randint(3,6)
-        penjemput = list_pickup(total_pickup)
-        penjemput = ', '.join(penjemput)
-        time = time_pickup()
-        
-        response['status'] = "success"
-        response['message'] = "Akan dijemput pada " + str(time) + " oleh " + str(penjemput)
-    else :
-        response['status'] = "failed"
-        response['message'] = "Gagal bro"
+# Buat server serta register fungsi 
+with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler = RequestHandler) as server:
+    server.register_introspection_functions()
 
-    return response
+    def report(nik, nama):
+        response = dict()
+        if validate_nik(nik):
+            total_pickup = random.randint(3,6)
+            penjemput = list_pickup(total_pickup)
+            penjemput = ', '.join(penjemput)
+            time = time_pickup()
+            
+            response['status'] = "success"
+            response['message'] = "Akan dijemput pada " + str(time) + " oleh " + str(penjemput)
+        else :
+            response['status'] = "failed"
+            response['message'] = "Gagal bro"
+
+        return response
+    
+    server.register_function(report,"report")
+
+    server.serve_forever()
