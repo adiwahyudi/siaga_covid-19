@@ -1,6 +1,6 @@
 #Client side
 import xmlrpc.client
-s = xmlrpc.client.ServerProxy('26.122.77.13:8008')
+s = xmlrpc.client.ServerProxy('http://26.122.77.13:8008')
 
 print("Siaga COVID-19")
 
