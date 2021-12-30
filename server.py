@@ -34,7 +34,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2')
 
 # Buat server serta register fungsi 
-with SimpleXMLRPCServer(("127.0.0.1", 8000), requestHandler = RequestHandler) as server:
+with SimpleXMLRPCServer(("26.122.77.13", 8008), requestHandler = RequestHandler) as server:
     server.register_introspection_functions()
 
     def report(nik):
