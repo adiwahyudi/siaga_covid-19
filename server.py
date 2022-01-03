@@ -53,7 +53,7 @@ with SimpleXMLRPCServer((IP_SERVER, PORT_NUM), requestHandler = RequestHandler) 
             response['message'] = "Penjemputan akan dilakukan pada " + str(time) + " WIB oleh petugas berikut " + str(penjemput)
         else :
             response['status'] = "failed"
-            response['message'] = "NIK tidak valid"
+            response['message'] = "NIK pelapor tidak valid"
 
         return response
     

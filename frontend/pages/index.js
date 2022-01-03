@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react'
 var xmlrpc = require('xmlrpc')
+import Swal from 'sweetalert2'
 
 export default function Home() {
+  var client = xmlrpc.createClient({
+    host: 'localhost',
+    port: 8008,
+    path: '/RPC2',
+    cookies: true
+  })
+
   var initial_data = {
     nik: "",
     nama_pelapor: "",
@@ -10,39 +18,34 @@ export default function Home() {
     alamat: ""
   }
 
-  var client = xmlrpc.createClient({
-    host: 'localhost',
-    port: 8008,
-    path: '/RPC2',
-    cookies: true
-  });
-
   const [Forms, setForms] = useState(initial_data)
-
-  const [Response, setResponse] = useState({
-    status: "none",
-    message: "",
-    // data: {
-    //   jum: 0,
-    //   nama: "",
-    //   waktu: ""
-    // }
-  })
 
   useEffect(() => {
     console.log(Forms)
   }, [Forms])
   
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     client.methodCall('report', [Forms.nik], (err, val) => {
       if (err) {
         console.log(err)
         return
       }
-      setResponse(val)
       if (val.status != 'failed'){
         setForms(initial_data)
+        Swal.fire({
+          title: 'Permintaan Berhasil Terlaporkan',
+          text: val.message,
+          icon: 'success',
+          confirmButtonText: 'Okay'
+        })
+      } else {
+        Swal.fire({
+          title: 'Permintaan Gagal',
+          text: val.message,
+          icon: 'error',
+          confirmButtonText: 'Okay'
+        })
       }
     })
   }
@@ -100,19 +103,6 @@ export default function Home() {
             </button>
           </div>
         </div>
-        {
-          Response.status == "none" ? <></> :
-            Response.status == "success" ?
-              <div className="w-full h-[125px] border-[2px] rounded-[10px] flex flex-col px-2 py-4 text-center text-[12px] select-none border-[#00D147]">
-                <p className="font-bold text-[#00D147]">Permintaan Berhasil Terlaporkan</p>
-                <p>{Response.message}</p>
-              </div>
-              :
-              <div className="w-full h-[125px] border-[2px] rounded-[10px] flex flex-col px-2 py-4 text-center text-[12px] select-none border-[#D10000]">
-                <p className="font-bold text-[#D10000]">Permintaan Gagal</p>
-                <p>{Response.message} <br/>Permintaan untuk penjemputan gagal. Harap coba lagi!</p>
-              </div>
-        }
       </form>
       </div>
     </div>    
