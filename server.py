@@ -5,6 +5,11 @@ import pandas as pd
 import numpy as np
 import random
 from datetime import timedelta, datetime
+# .env
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Membaca dataset
 df_nik = pd.read_csv('data_nik.csv')
@@ -35,7 +40,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 
 # Buat variabel port number dan ip server
 PORT_NUM = 8008
-IP_SERVER = 'localhost'
+IP_SERVER = '26.122.77.13'
 
 # Buat server serta register fungsi 
 with SimpleXMLRPCServer((IP_SERVER, PORT_NUM), requestHandler = RequestHandler) as server:
@@ -49,10 +54,10 @@ with SimpleXMLRPCServer((IP_SERVER, PORT_NUM), requestHandler = RequestHandler) 
             penjemput = ', '.join(penjemput)
             time = time_pickup()
             
-            response['status'] = "success"
-            response['message'] = "Penjemputan akan dilakukan pada " + str(time) + " WIB oleh petugas berikut " + str(penjemput)
+            response['status'] = "Success"
+            response['message'] = "Penjemputan akan dilakukan pada " + str(time) + " WIB oleh petugas sebanyak "+ str(total_pickup) + " orang dan berikut yang akan menjemput " + str(penjemput)
         else :
-            response['status'] = "failed"
+            response['status'] = "Failed"
             response['message'] = "NIK pelapor tidak valid"
 
         return response

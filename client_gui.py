@@ -7,7 +7,6 @@ root = Tk()
 
 root.title('Tugas Besar Sistem Pararel dan Terdistribusi')
 root.geometry("500x500")
-
 # Label Title on GUI
 label_title = Label(root,text="  Form Laporan \n Tertular COVID-19",width=18,font=("bold", 20),)
 label_title.place(x=90,y=50)
@@ -53,10 +52,10 @@ val_gejala_terduga = tf_gejala_terduga.get()
 
 def submit():
     val_nik = tf_nik.get()
-    if s.report(val_nik)['status'] == "success":
-        messagebox.showinfo(title="Success",message=s.report(val_nik)['message'])
+    if s.report(val_nik)['status'] == "Success":
+        messagebox.showinfo(title=s.report(val_nik)['status'],message=s.report(val_nik)['message'])
     else:
-        messagebox.showinfo(title="Failed",message=s.report(val_nik)['message'])
+        messagebox.showinfo(title=s.report(val_nik)['status'],message=s.report(val_nik)['message'])
         
 Button(root, text='Submit',bg="green",fg='white', command=submit).place(x=225,y=310)
 
