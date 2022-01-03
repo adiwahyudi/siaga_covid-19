@@ -33,8 +33,12 @@ def time_pickup():
 class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2')
 
+# Buat variabel port number dan ip server
+PORT_NUM = 8008
+IP_SERVER = 'localhost'
+
 # Buat server serta register fungsi 
-with SimpleXMLRPCServer(("26.122.77.13", 8008), requestHandler = RequestHandler) as server:
+with SimpleXMLRPCServer((IP_SERVER, PORT_NUM), requestHandler = RequestHandler) as server:
     server.register_introspection_functions()
 
     def report(nik):
@@ -46,13 +50,13 @@ with SimpleXMLRPCServer(("26.122.77.13", 8008), requestHandler = RequestHandler)
             time = time_pickup()
             
             response['status'] = "success"
-            response['message'] = "Akan dijemput pada " + str(time) + " oleh " + str(penjemput)
+            response['message'] = "Penjemputan akan dilakukan pada " + str(time) + " WIB oleh petugas berikut " + str(penjemput)
         else :
             response['status'] = "failed"
-            response['message'] = "Gagal bro"
+            response['message'] = "NIK tidak valid"
 
         return response
     
     server.register_function(report,'report')
-
+    print("Server running on port", PORT_NUM)
     server.serve_forever()
