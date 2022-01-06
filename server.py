@@ -33,6 +33,17 @@ def time_pickup():
 class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2')
 
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.end_headers()
+
+    # Add these headers to all responses
+    def end_headers(self):
+        self.send_header("Access-Control-Allow-Headers", 
+                         "Origin, X-Requested-With, Content-Type, User-Agent, Accept")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        SimpleXMLRPCRequestHandler.end_headers(self)
+
 # Buat variabel port number dan ip server
 PORT_NUM = 8008
 IP_SERVER = 'localhost'
