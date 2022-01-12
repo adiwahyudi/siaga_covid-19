@@ -1,15 +1,10 @@
 #Server side
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
+from datetime import timedelta, datetime
 import pandas as pd
 import numpy as np
 import random
-from datetime import timedelta, datetime
-# .env
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
 
 # Membaca dataset
 df_nik = pd.read_csv('data_nik.csv')
@@ -51,13 +46,13 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 
 # Buat variabel port number dan ip server
 PORT_NUM = 8008
-IP_SERVER = '26.122.77.13'
+IP_SERVER = 'localhost'
 
 # Buat server serta register fungsi 
 with SimpleXMLRPCServer((IP_SERVER, PORT_NUM), requestHandler = RequestHandler) as server:
     server.register_introspection_functions()
 
-    def report(nik):
+    def report(nik,nama_pelapor,nama_terduga,gejala_terduga,alamat_terduga):
         response = dict()
         if validate_nik(nik):
             total_pickup = random.randint(3,6)
@@ -67,9 +62,21 @@ with SimpleXMLRPCServer((IP_SERVER, PORT_NUM), requestHandler = RequestHandler) 
             
             response['status'] = "Success"
             response['message'] = "Penjemputan akan dilakukan pada " + str(time) + " WIB oleh petugas sebanyak "+ str(total_pickup) + " orang dan berikut yang akan menjemput " + str(penjemput)
+            
+            # Save to txt file
+            teks = "\nNIK Pelapor : {}\nNama Pelapor : {}\nNama Terduga : {}\nGejala Terduga : {}\nAlamat Terduga : {}\n======================================================".format(nik, nama_pelapor, nama_terduga, gejala_terduga, alamat_terduga)
+            file_bio = open("report_valid.txt", "a")
+            file_bio.write(teks)
+            file_bio.close()
         else :
             response['status'] = "Failed"
             response['message'] = "NIK pelapor tidak valid"
+
+            # Save to txt file
+            teks = "\nNIK Pelapor : {}\nNama Pelapor : {}\nNama Terduga : {}\nGejala Terduga : {}\nAlamat Terduga : {}\n======================================================".format(nik, nama_pelapor, nama_terduga, gejala_terduga, alamat_terduga)
+            file_bio = open("report_notvalid.txt", "a")
+            file_bio.write(teks)
+            file_bio.close()
 
         return response
     

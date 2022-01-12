@@ -1,0 +1,25 @@
+
+NIK Pelapor : 1301190001
+Nama Pelapor : reza
+Nama Terduga : iwan
+Gejala Terduga : demam
+Alamat Terduga : medan
+======================================================
+NIK Pelapor : 1301190002
+Nama Pelapor : anto
+Nama Terduga : megi
+Gejala Terduga : batuk
+Alamat Terduga : bandung
+======================================================
+NIK Pelapor : 1301190005
+Nama Pelapor : felix
+Nama Terduga : siaw
+Gejala Terduga : demam, batuk sakit kali bah
+Alamat Terduga : jl. bojongsoeng no 118
+======================================================
+NIK Pelapor : 1301190001
+Nama Pelapor : reza
+Nama Terduga : iwan fals
+Gejala Terduga : meriang
+Alamat Terduga : papua
+======================================================

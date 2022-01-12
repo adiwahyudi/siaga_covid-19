@@ -1,0 +1,13 @@
+
+NIK Pelapor : 131111331
+Nama Pelapor : sdsds
+Nama Terduga : sdsd
+Gejala Terduga : sdsds
+Alamat Terduga : sds
+======================================================
+NIK Pelapor : 6969696969
+Nama Pelapor : ridwan
+Nama Terduga : hanif
+Gejala Terduga : batuk pilek demam
+Alamat Terduga : jl. lingkarjati no 69
+======================================================

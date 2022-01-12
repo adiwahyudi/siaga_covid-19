@@ -26,12 +26,12 @@ export default function Home() {
   
   const submitHandler = (e) => {
     e.preventDefault()
-    client.methodCall('report', [Forms.nik], (err, val) => {
+    client.methodCall('report', [Forms.nik, Forms.nama_pelapor, Forms.nama_terduga, Forms.gejala, Forms.alamat], (err, val) => {
       if (err) {
         console.log(err)
         return
       }
-      if (val.status != 'failed'){
+      if (val.status != 'Failed'){
         setForms(initial_data)
         Swal.fire({
           title: 'Permintaan Berhasil Terlaporkan',
@@ -51,7 +51,7 @@ export default function Home() {
   }
 
   return (
-    <div className=" h-full w-full flex flex-row justify-center">
+    <div className=" h-full w-full flex flex-row justify-center min-h-[750px] bg-cover bg-no-repeat bg-center bg-[url('/img/background.jpg')]">
       <div className="py-8 px-5 max-w-[640px] sm:w-[35%]">
         <h1 className="font-bold text-[24px] text-center">
           Form Pelaporan Kasus COVID-19
@@ -63,13 +63,13 @@ export default function Home() {
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               NIK Pelapor
             </label>
-            <input onChange={e => { setForms({ ...Forms, nik: e.target.value }) }} value={Forms.nik} className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="" type="number" />
+            <input onChange={e => { setForms({ ...Forms, nik: e.target.value }) }} value={Forms.nik} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="number" required/>
           </div>
           <div className="w-full md:w-1/2 px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Nama Pelapor
             </label>
-            <input onChange={e => { setForms({ ...Forms, nama_pelapor: e.target.value }) }} value={Forms.nama_pelapor}   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" />
+            <input onChange={e => { setForms({ ...Forms, nama_pelapor: e.target.value }) }} value={Forms.nama_pelapor}   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" required/>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-6">
@@ -77,7 +77,7 @@ export default function Home() {
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Nama Terduga
             </label>
-            <input onChange={e => { setForms({ ...Forms, nama_terduga: e.target.value }) }} value={Forms.nama_terduga} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" />
+            <input onChange={e => { setForms({ ...Forms, nama_terduga: e.target.value }) }} value={Forms.nama_terduga} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" required/>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-6">
@@ -85,7 +85,7 @@ export default function Home() {
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Gejala yang Dirasakan
             </label>
-            <textarea onChange={e => { setForms({ ...Forms, gejala: e.target.value }) }} value={Forms.gejala} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" />
+            <textarea onChange={e => { setForms({ ...Forms, gejala: e.target.value }) }} value={Forms.gejala} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" required/>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-6">
@@ -93,7 +93,7 @@ export default function Home() {
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Alamat Terduga
             </label>
-            <textarea onChange={e => { setForms({ ...Forms, alamat: e.target.value }) }} value={Forms.alamat} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" />
+            <textarea onChange={e => { setForms({ ...Forms, alamat: e.target.value }) }} value={Forms.alamat} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" required/>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-6">
