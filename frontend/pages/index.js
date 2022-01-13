@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 
 export default function Home() {
   var client = xmlrpc.createClient({
-    host: 'localhost',
+    host: '26.122.77.13',
     port: 8008,
     path: '/RPC2',
     cookies: true

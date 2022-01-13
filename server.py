@@ -33,6 +33,7 @@ def time_pickup():
 class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2')
 
+    # Enable CORS
     def do_OPTIONS(self):
         self.send_response(200)
         self.end_headers()
@@ -46,7 +47,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 
 # Buat variabel port number dan ip server
 PORT_NUM = 8008
-IP_SERVER = 'localhost'
+IP_SERVER = '26.122.77.13'
 
 # Buat server serta register fungsi 
 with SimpleXMLRPCServer((IP_SERVER, PORT_NUM), requestHandler = RequestHandler) as server:
